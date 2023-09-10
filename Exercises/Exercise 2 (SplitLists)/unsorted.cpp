@@ -172,21 +172,30 @@ void UnsortedType::Print(){
 	cout << endl;
 }
 
-
-  void UnsortedType::SplitListsArray(ItemType item, UnsortedType& list1, UnsortedType& list2){
-    int length = GetLength();
+  void UnsortedType::SplitLists(ItemType list[], int listSize, ItemType item, UnsortedType& list1, UnsortedType& list2){
     ItemType current;
-    ResetList();
+    for (int i = 0; i < listSize;i++){
+			current = list[i];
+      if(current.ComparedTo(item) == GREATER){
+        list2.PutItem(current);
+      }
+      else{
+        list1.PutItem(current);
+      }
+		}
+  }
+
+  void UnsortedType::SplitLists(UnsortedType list, ItemType item, UnsortedType& list1, UnsortedType& list2){
+    int length = list.GetLength();
+    ItemType current;
+    list.ResetList();
     for (int i = 0; i < length;i++){
-			current = GetNextItem();
-      switch(current.ComparedTo(item)){
-        case LESS:
-        case EQUAL: 
-          list1.PutItem(current);
-          break;
-        case GREATER: 
-          list2.PutItem(current);
-          break;
+			current = list.GetNextItem();
+      if(current.ComparedTo(item) == GREATER){
+        list2.PutItem(current);
+      }
+      else{
+        list1.PutItem(current);
       }
 		}
   }
