@@ -79,6 +79,10 @@ public:
   void Print();
   //Complete this...
 
+  void SplitListsArray(ItemType item, UnsortedType& list1, UnsortedType& list2);
+
+  void SplitListsLinked(ItemType item, UnsortedType& list1, UnsortedType& list2);
+
 private:
   NodeType* listData;
   int length;

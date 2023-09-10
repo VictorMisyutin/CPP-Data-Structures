@@ -21,17 +21,18 @@ bool UnsortedType::IsFull() const
 // Returns true if there is no room for another ItemType
 //  on the free store; false otherwise.
 {
-  NodeType* location;
-  try
-  {
-    location = new NodeType;
-    delete location;
-    return false;
-  }
-  catch(std::bad_alloc exception)
-  {
-    return true;
-  }
+  return false;
+  // NodeType* location;
+  // try
+  // {
+  //   location = new NodeType;
+  //   delete location;
+  //   return false;
+  // }
+  // catch(std::bad_alloc &exception)
+  // {
+  //   return true;
+  // }
 }
 
 int UnsortedType::GetLength() const
@@ -170,6 +171,29 @@ void UnsortedType::Print(){
 	}
 	cout << endl;
 }
+
+
+  void UnsortedType::SplitListsArray(ItemType item, UnsortedType& list1, UnsortedType& list2){
+    int length = GetLength();
+    ItemType current;
+    ResetList();
+    for (int i = 0; i < length;i++){
+			current = GetNextItem();
+      switch(current.ComparedTo(item)){
+        case LESS:
+        case EQUAL: 
+          list1.PutItem(current);
+          break;
+        case GREATER: 
+          list2.PutItem(current);
+          break;
+      }
+		}
+  }
+
+  void SplitListsLinked(ItemType item, UnsortedType& list1, UnsortedType& list2){
+
+  }
 
 //Assignment operator
 UnsortedType& UnsortedType::operator=(const UnsortedType& rhs){
