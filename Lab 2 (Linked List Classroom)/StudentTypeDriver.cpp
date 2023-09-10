@@ -28,7 +28,7 @@ int main(){
 	//NON_ATTENDING = 0, ENROLLED = 1, GRADUATED = 2
 	cout << "Compare student1 to student1: " << student1.ComparedTo(student1) << endl;  //expect 1 for same status
 	cout << "Compare student1 to student2: " << student1.ComparedTo(student2) << endl;  //expect 0 when status is not the same
-
+	
 	cout << "Print list 0:\n";
 	classList.ResetList();  //reset the current position to NULL
 	classList.Print();

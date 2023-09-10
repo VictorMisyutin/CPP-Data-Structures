@@ -155,7 +155,20 @@ UnsortedType::~UnsortedType()
 }
 
 void UnsortedType::Print(){
-	//Complete this.
+  //Complete this.
+  int length = GetLength();
+  if (length > 0){
+    ItemType current;
+    while (length > 0){
+      current = GetNextItem();
+      cout << "Name: " << current.NameIs() << endl;
+      cout << "Status: " << current.GetStatus() << endl;
+      length--;
+    }
+  }
+  else{
+    cout << "Empty." << endl;
+  }
 }
 
 
