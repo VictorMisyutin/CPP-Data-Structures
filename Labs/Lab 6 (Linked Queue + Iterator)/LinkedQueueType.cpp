@@ -22,22 +22,23 @@ LinkedQueueType::LinkedQueueType(const LinkedQueueType& qt){
 
 LinkedQueueType LinkedQueueType::operator=(const LinkedQueueType& rhs){
 	//assignment operator=
-	if (this != &rhs) {
-        MakeEmpty();
+	LinkedQueueType(rhs);
+    // if (this != &rhs) {
+    //     MakeEmpty();
         
-        NodeType* cur = rhs.rear;
-        NodeType* pre = nullptr;
-        while (cur != nullptr) {
-            Enqueue(cur->info);
-            pre = cur;
-            cur = cur->next;
-        }
+    //     NodeType* cur = rhs.rear;
+    //     NodeType* pre = nullptr;
+    //     while (cur != nullptr) {
+    //         Enqueue(cur->info);
+    //         pre = cur;
+    //         cur = cur->next;
+    //     }
 
-        if (pre != nullptr) {
-            rear = pre;
-        }
-    }
-    return *this;
+    //     if (pre != nullptr) {
+    //         rear = pre;
+    //     }
+    // }
+    // return *this;
 }
 
 LinkedQueueType::LinkedQueueType()          // Default class constructor
