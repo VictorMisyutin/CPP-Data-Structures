@@ -10,18 +10,12 @@ LinkedQueueType::LinkedQueueType(const LinkedQueueType& qt){
     rear = nullptr;
 	length = 0;
 	NodeType* cur = qt.rear->next;
-    NodeType* pre = nullptr;
     
     int count = qt.length;
     while (count > 0){
         Enqueue(cur->info);
-        pre = cur;
         cur = cur->next;
-        count --;
-    }
-
-    if (pre != nullptr) {
-        rear = pre;
+        count--;
     }
     
 }
@@ -29,20 +23,19 @@ LinkedQueueType::LinkedQueueType(const LinkedQueueType& qt){
 LinkedQueueType LinkedQueueType::operator=(const LinkedQueueType& rhs){
     if (this != &rhs) {
         MakeEmpty();
-        
-        NodeType* cur = rhs.rear;
+        rear = nullptr;
+        length = 0;
+        NodeType* cur = rhs.rear->next;
         NodeType* pre = nullptr;
+        
         int count = rhs.length;
-        while(count > 0){
+        while (count > 0){
             Enqueue(cur->info);
             pre = cur;
             cur = cur->next;
             count--;
         }
-
-        if (pre != nullptr) {
-            rear = pre;
-        }
+        rear = pre;
     }
     return *this;
 }
@@ -87,21 +80,17 @@ void LinkedQueueType::Enqueue(ItemType newItem){
 }
 
 void LinkedQueueType::Dequeue(ItemType& item){
-    if(IsEmpty()){
-        // throw EmptyQueue();
-	}
-	NodeType* front = rear->next;
-	NodeType* newFront;
-	if(front->next != nullptr){
-		newFront = front->next;
-	}
-	else{
-		newFront = nullptr;
-	}
-	item = front->info;
-	rear->next = newFront;
-	delete front;
-	length--;
+    if (IsEmpty()) {
+        throw EmptyQueue();
+    }
+
+    NodeType* front = rear->next;
+    NodeType* newFront = front->next; 
+    item = front->info;
+    rear->next = newFront;  
+
+    delete front;
+    length--;
 }
 
 void LinkedQueueType::Print(){

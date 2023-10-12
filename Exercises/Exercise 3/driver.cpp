@@ -24,7 +24,6 @@ int main() {
     q2.Print();
     LinkedQueueType q1;
     q1 = q; //call assignment operator=
-    q.Print();
     q1.Print();
     return 0;
 }
