@@ -41,7 +41,7 @@ LinkedQueueType LinkedQueueType::operator=(const LinkedQueueType& rhs){
 }
 
 LinkedQueueType::~LinkedQueueType (){
-    MakeEmpty();
+    length = 0;
 }
 
 void LinkedQueueType::MakeEmpty(){
@@ -89,7 +89,9 @@ void LinkedQueueType::Dequeue(ItemType& item){
     item = front->info;
     rear->next = newFront;  
 
-    delete front;
+    if(front != nullptr){
+        delete front;
+    }
     length--;
 }
 
