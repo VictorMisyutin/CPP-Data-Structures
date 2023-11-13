@@ -3,26 +3,37 @@
 template<class ItemType>
 HashType<ItemType>::HashType()
 {
+  a = 33;
   numCollisions = 0;
   numItems = 0;
   size = MAX_ITEMS;
-  info = new int[size];
+  info = new ItemType[size];
   for(int i = 0; i < size; i++)
 	  info[i] = emptyItem;
 }
 // Constructor
 template<class ItemType>
 HashType<ItemType>::HashType(int s, int factor){
+    a = 33;
 	numItems = 0;
 	numCollisions = 0;
 	size = s;
-	info = new int[size];
+	info = new ItemType[size];
 	for(int i = 0; i < size; i++){
 		info[i] = emptyItem;
 	}
 }
 //Dynamic size constructor
-void MakeEmpty();
+template<class ItemType>
+void HashType<ItemType>::MakeEmpty(){
+    delete[] info;  
+    info = new ItemType[size];
+    for (int i = 0; i < size; ++i) {
+        info[i] = emptyItem;
+    }
+    numItems = 0;
+    numCollisions = 0;
+}
 // Function: Returns the list to the empty state.
 // Post: List is empty.
 template<class ItemType>
@@ -72,7 +83,23 @@ void HashType<ItemType>::RetrieveItem(ItemType& item, bool& found)
 // List is unchanged.
 template<class ItemType>
 void HashType<ItemType>::InsertItemLinear(ItemType item){
-
+    int location = Hash(item) % size;
+    int startLoc = location;
+    bool found = false;
+    while (!found) {
+        if (info[location] == emptyItem || info[location] == item) {
+            info[location] = item;
+            numItems++;
+            found = true;
+        } else {
+            location = (location + 1) % size; // Linear probing
+            numCollisions++;
+            if (location == startLoc) {
+                cout << "Error: Unable to insert item. Hash table is full." << endl;
+                return;
+            }
+        }
+  }
 }
 // Function: Adds item to list and uses a linear probing technique to
 // resolve collisions.
@@ -82,7 +109,26 @@ void HashType<ItemType>::InsertItemLinear(ItemType item){
 // Post: item is in list.
 template<class ItemType>
 void HashType<ItemType>::InsertItemQuadratic(ItemType item){
+    int location = Hash(item) % size;
+    int startLoc = location;
+    bool found = false;
+    int i = 1;
 
+    while (!found) {
+        if (info[location] == emptyItem || info[location] == item) {
+            info[location] = item;
+            numItems++;
+            found = true;
+        } else {
+            location = (startLoc + i * i) % size; // Quadratic probing
+            numCollisions++;
+            i++;
+            if (location == startLoc) {
+                cout << "Error: Unable to insert item. Hash table is full." << endl;
+                return;
+            }
+        }
+    }
 }
 // Function: Adds item to list and uses a quadratic probing technique to
 // resolve collisions.
@@ -123,10 +169,15 @@ int HashType<ItemType>::Hash(string item) const{
     int hash = 0;
     int n = item.length();
     for (int i = 0; i < n; i ++)
-        hash = a * hash + item.at(i);  
-    return hash;
+        hash = a * hash + item.at(i);
+    return abs(hash);
 }
 //This is the hash function for this class
+template<class ItemType>
+void HashType<ItemType>::setA(int newA){
+    a = newA;
+}
+
 template<class ItemType>
 unsigned long int HashType<ItemType>::GetCollisions() const{
     return numCollisions;

@@ -7,9 +7,6 @@
 #include <iostream>
 #include <bitset>
 using namespace std;
-// const int MAX_ITEMS = 11;
-// const int A = 33;
-
 template <class ItemType>
 class HashType
 {
@@ -61,6 +58,8 @@ public:
 	// Post: No element in list has a key matching item's key.
 	int Hash(string item) const;
 	//This is the hash function for this class
+	void setA(int newA);
+	// This function changes the value of a
 	unsigned long int GetCollisions() const;
 	//return the number of collisions that occured during the build of
 	// the hash table
@@ -71,7 +70,7 @@ private:
 	int numItems;
 	int size;
 	ItemType* info;
-	ItemType emptyItem = ""; //The empty string
+	ItemType emptyItem; //The empty string
 	unsigned long int numCollisions;
 };
 #endif
