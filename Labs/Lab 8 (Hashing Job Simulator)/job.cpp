@@ -10,7 +10,7 @@ Job::Job(int p, int l){
     priority = p;
 }
 
-int Job::getLength(){
+int Job::getLength() const{
     return length;
 }
 

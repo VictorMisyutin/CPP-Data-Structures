@@ -1,0 +1,35 @@
+The way my program is set up is that if the simulator runs into a job that will cause thet total number of completed cycles
+to go over the cycle limit, then the job is not run and the simulation is terminated.After running the simulation 1000 times with a
+simulator cycle limit of 2700 none of the simulations were completed. Only after I changed the cycle limit to 6675 was the program 
+consitently completing all 1000 simulations. Each simulation averages around 4500 to 5500 cycles but for some simulations this spikes 
+up to roughly 6500 cycles. If I were to lower the cycle limit to 5500 the simulation would still complete most of the jobs during 
+each simulator run but in order to garauntee all jobs are completed on each run, I had to make the cycle limit pretty large. For any
+given run of the simulator, the average number of jobs in the heap per cycle is usually one or two but I have seen it jump as high as 12.
+If we were to say that on average the number of jobs in the heap per cycle is between one and four then the median would be roughly 
+two and a half. However, that being said, there is a lot of deviation from the median. Here is a sample output from five runs of my
+program:
+
+1)
+Average number of jobs in heap per cycle: 4
+Completed Simulation: 1000
+Incomplete Simulations: 0
+
+2)
+Average number of jobs in heap per cycle: 0
+Completed Simulation: 1000
+Incomplete Simulations: 0 
+
+3)
+Average number of jobs in heap per cycle: 1
+Completed Simulation: 1000
+Incomplete Simulations: 0
+
+4)
+Average number of jobs in heap per cycle: 1
+Completed Simulation: 1000
+Incomplete Simulations: 0
+
+5)
+Average number of jobs in heap per cycle: 3
+Completed Simulation: 1000
+Incomplete Simulations: 0 
