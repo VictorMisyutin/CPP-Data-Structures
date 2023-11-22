@@ -73,4 +73,7 @@ private:
 	ItemType emptyItem; //The empty string
 	unsigned long int numCollisions;
 };
+
+#include "HashType_impl.tpp"
+
 #endif

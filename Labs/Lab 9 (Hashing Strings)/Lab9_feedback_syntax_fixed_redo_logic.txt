@@ -1,35 +1,6 @@
-For the first file, an a value of 33 was best to reduce the amount of collisions.
-For the second file, an a value of 39 was best to reduce the amount of collisions.
-For the third file, an a value of 39 was best to reduce the amount of collisions.
-For the fourth file, an a value of 41 was best to reduce the amount of collisions.
-
-I am not completly sure why certain values of a yield less collisions
-than other values but my guess is that certain prime or odd numbers stop
-patterns from occuring when calculating a hash. 
-
-For the first file Quadratic Probing caused less collisions.
-For the second file Linear Probing caused less collisions.
-For the third file Quadratic Probing caused less collisions.
-For the fourth file Quadratic Probing caused less collisions.
-
-So it seems that quadratic probing is more likely to reduce
-the amount of collisions when inserting into the hash table.
-
-Clustering occured all over the hash table since there are many words that have similar consonants
-and the same vowels, causing similar hash values.
-
-One way that you could improve polynomial hashing is by increasing the size of hasht table
-as it gets larger. This would open up more spots for new hashes. However, a down side of This
-is that you might have a lot of unused, wasted memory.
-
-Another probing technique that we could have used is double hashing. In double probing
-if there is a hashing collision you re calculate the hash using the original hash.
-
-Here is the output of my program:
-
 HashText1.txt
 
-Linear:
+Linear: 
 Hash Table Size: 8087
 Number of collisions with a = 33: 388
 Hash Table Size: 8087
@@ -38,7 +9,7 @@ Hash Table Size: 8087
 Number of collisions with a = 39: 585
 Hash Table Size: 8087
 Number of collisions with a = 41: 387
-Quadratic:
+Quadratic: 
 Hash Table Size: 8087
 Number of collisions with a = 33: 387
 Hash Table Size: 8087
@@ -50,7 +21,7 @@ Number of collisions with a = 41: 339
 
 HashText2.txt
 
-Linear:
+Linear: 
 Hash Table Size: 84551
 Number of collisions with a = 33: 1405
 Hash Table Size: 84551
@@ -59,7 +30,7 @@ Hash Table Size: 84551
 Number of collisions with a = 39: 1758
 Hash Table Size: 84551
 Number of collisions with a = 41: 3253
-Quadratic:
+Quadratic: 
 Hash Table Size: 84551
 Number of collisions with a = 33: 3253
 Hash Table Size: 84551
@@ -71,7 +42,7 @@ Number of collisions with a = 41: 2149
 
 HashText3.txt
 
-Linear:
+Linear: 
 Hash Table Size: 57487
 Number of collisions with a = 33: 2386
 Hash Table Size: 57487
@@ -80,7 +51,13 @@ Hash Table Size: 57487
 Number of collisions with a = 39: 1626
 Hash Table Size: 57487
 Number of collisions with a = 41: 1326
-Quadratic:
+Similar to Lab8, file HashType.cpp was renamed to HashType_impl.tpp and
+included after HashType<ItemType> in HashType.h file. Accordingly, 
+in driver.cpp, HashType.h is included instead of HashType.cpp.
+
+***********************************************
+
+Quadratic: 
 Hash Table Size: 57487
 Number of collisions with a = 33: 1326
 Hash Table Size: 57487
@@ -92,7 +69,7 @@ Number of collisions with a = 41: 0
 
 HashText4.txt
 
-Linear:
+Linear: 
 Hash Table Size: 6563
 Number of collisions with a = 33: 548
 Hash Table Size: 6563
@@ -101,7 +78,7 @@ Hash Table Size: 6563
 Number of collisions with a = 39: 435
 Hash Table Size: 6563
 Number of collisions with a = 41: 316
-Quadratic:
+Quadratic: 
 Hash Table Size: 6563
 Number of collisions with a = 33: 316
 Hash Table Size: 6563
@@ -110,4 +87,3 @@ Hash Table Size: 6563
 Number of collisions with a = 39: 409
 Hash Table Size: 6563
 Number of collisions with a = 41: 298
-

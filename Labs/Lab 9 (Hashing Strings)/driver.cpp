@@ -1,7 +1,7 @@
-#include "HashType.cpp"
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "HashType.h"
 
 using namespace std;
 void buildHashTable(ifstream& inFile, HashType<string>& hashTable, int type);
@@ -10,7 +10,7 @@ int main(){
     // int collisions;
     ifstream file1("hashText1.txt");
     ifstream file2("hashText2.txt");
-    ifstream file3("hashTe  xt3.txt");
+    ifstream file3("hashText3.txt");
     ifstream file4("hashText4.txt");
         
 

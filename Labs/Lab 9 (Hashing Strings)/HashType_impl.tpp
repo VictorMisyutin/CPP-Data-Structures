@@ -84,7 +84,6 @@ void HashType<ItemType>::RetrieveItem(ItemType& item, bool& found)
 template<class ItemType>
 void HashType<ItemType>::InsertItemLinear(ItemType item){
     int location = Hash(item) % size;
-    int startLoc = location;
     bool found = false;
     while (!found) {
         if (info[location] == emptyItem || info[location] == item) {
@@ -94,10 +93,6 @@ void HashType<ItemType>::InsertItemLinear(ItemType item){
         } else {
             location = (location + 1) % size; // Linear probing
             numCollisions++;
-            if (location == startLoc) {
-                cout << "Error: Unable to insert item. Hash table is full." << endl;
-                return;
-            }
         }
   }
 }
@@ -119,14 +114,11 @@ void HashType<ItemType>::InsertItemQuadratic(ItemType item){
             info[location] = item;
             numItems++;
             found = true;
+            i = 0;
         } else {
             location = (startLoc + i * i) % size; // Quadratic probing
             numCollisions++;
             i++;
-            if (location == startLoc) {
-                cout << "Error: Unable to insert item. Hash table is full." << endl;
-                return;
-            }
         }
     }
 }
