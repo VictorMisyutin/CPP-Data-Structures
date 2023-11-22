@@ -196,7 +196,7 @@ int main(){
     file3.seekg(0,ios::beg);
     map3.MakeEmpty();
     map3.setA(41);
-    buildHashTable(file2, map3, 0);
+    buildHashTable(file3, map3, 0);
     cout << "Number of collisions with a = 41: " << map3.GetCollisions() << endl; 
 
     // file 4

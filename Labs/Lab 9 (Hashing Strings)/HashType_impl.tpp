@@ -86,7 +86,7 @@ void HashType<ItemType>::InsertItemLinear(ItemType item){
     int location = Hash(item) % size;
     bool found = false;
     while (!found) {
-        if (info[location] == emptyItem || info[location] == item) {
+        if (info[location] == emptyItem) {
             info[location] = item;
             numItems++;
             found = true;
@@ -110,7 +110,7 @@ void HashType<ItemType>::InsertItemQuadratic(ItemType item){
     int i = 1;
 
     while (!found) {
-        if (info[location] == emptyItem || info[location] == item) {
+        if (info[location] == emptyItem) {
             info[location] = item;
             numItems++;
             found = true;
