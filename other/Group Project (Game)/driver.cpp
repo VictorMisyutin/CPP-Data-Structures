@@ -1,4 +1,8 @@
 #include "character.h"
-int main(){
+#include <iostream>
 
+using namespace std;
+int main(){
+    Character player = new Character();
+    
 }

@@ -13,7 +13,7 @@ class Character
 public:
     Character();
     // Default Constructor for character
-    Character(int a, int c, int e, int i, int s, float);
+    Character(int a, int c, int e, int i, int s, float h);
 
     int getAgility();
 
@@ -48,6 +48,6 @@ private:
 	float health; // stores characters health
 };
 
-// #include "HashType_impl.tpp"
+#include "Character_impl.tpp"
 
 #endif
