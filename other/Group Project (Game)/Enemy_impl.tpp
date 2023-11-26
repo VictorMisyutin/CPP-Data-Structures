@@ -7,6 +7,7 @@ Enemy::Enemy(){
     strength = 0;
     health = 0;
     name = "";
+    numAttacks = 0;
 }
 // Default Constructor for Enemy
 Enemy::Enemy(int a, int l,int s, int h, string n){
@@ -15,6 +16,7 @@ Enemy::Enemy(int a, int l,int s, int h, string n){
     strength = s;
     health =  75 + (10 * h);
     name = n;
+    numAttacks = 0;
 }
 
 int Enemy::getAgility(){
@@ -57,19 +59,25 @@ string Enemy::getName(){
 }
 
 void Enemy::addAttack(string attk){
-    bool openSpot = false;
+    if(numAttacks == 5){
+        cout << "Enemy has max number of attacks." << endl;
+        return; 
+    }
     for(int i = 0 ; i < sizeof(attacks); i++){
         if(attacks[i] == ""){
             attacks[i] = attk;
-            openSpot = true;
+            numAttacks++;
             break;
         } 
     }
-    if(!openSpot)
-        cout << "Enemy has enough attacks." << endl;
 }
 
 void Enemy::attack(Character& player){
+    string attackUsed;
+    int randomAttk = rand() % numAttacks;
+    attackUsed = attacks[randomAttk];
+    cout << name << " used " << attackUsed << endl;
+
     int damage = 45;
     damage += (5*strength); // calculate bonus damage due to strength stat
 

@@ -45,6 +45,7 @@ public:
 private:
     array<Enemy, 5> enemies; // Array of 5 enemies
     Room* nextRoom;
+    int teir;
 };
 
 #endif

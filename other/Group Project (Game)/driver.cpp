@@ -23,11 +23,16 @@ int main(){
     vampire.addAttack("Claw");
     vampire.addAttack("Hypnosis");
 
-    while(!zombie.isDead()){
+    while(!zombie.isDead() && !player.isDead()){
         player.attack(zombie);
+        zombie.attack(player);
     }
-    // zombie.printStats();
-    // cout << "Zombie is dead" << endl;
+    if(player.isDead()){
+        cout << "Player is dead." << endl;
+    }
+    else{
+        cout << zombie.getName() << " is dead" << endl;
+    }
 
 
 

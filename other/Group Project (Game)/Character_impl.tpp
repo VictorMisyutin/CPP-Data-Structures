@@ -119,6 +119,10 @@ void Character::printHealth(){
     cout << "Current health: " << health << endl;
 }
 
+bool Character::isDead(){
+    return (health <= 0);
+}
+
 void Character::attack(Enemy& enemy){
     int damage = 45;
     damage += (5*strength); // calculate bonus damage due to strength stat

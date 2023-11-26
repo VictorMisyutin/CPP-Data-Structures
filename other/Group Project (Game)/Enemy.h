@@ -61,6 +61,7 @@ public:
 private:
     string name; // stores enemies name
     string attacks[5] = {"", "", "", "", ""}; // stores enemies attacks (maximum of five)
+    int numAttacks; // stores number of attacks
     int agility; // stores agility stat
     int luck; // stores luck stat
     int strength; // stores strength stat

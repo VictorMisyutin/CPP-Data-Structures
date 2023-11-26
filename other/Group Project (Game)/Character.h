@@ -50,6 +50,10 @@ public:
     // prints characters health
     // pre: Character is initialized
     // post: nothing
+    bool isDead();
+    // returns true if character is dead
+    // pre: Character is initialized
+    // post: nothing
     void attack(Enemy& enemy);
     // character attacks enemy
     // pre: Character and enemy is initialized
