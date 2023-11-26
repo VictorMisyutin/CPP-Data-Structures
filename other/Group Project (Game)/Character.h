@@ -1,63 +1,65 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-// #include "ItemType.h"
-// #include <string>
-// #include <cmath>
-// #include <iostream>
-// #include <bitset>
 using namespace std;
+
+class Enemy;
 // template <class ItemType>
 class Character
 {
 public:
     Character();
     // Default Constructor for character
-    Character(int a, int c, int e, int i, int l,int s, int h);
-    
+    // post: character is initialized
+    Character(int a, int l,int s, int h);
+    // Overloaded Constructor for character
+    // post: character is initialized with a,l,s,h values
     void promptAllStats();
-    
+    // user is prompted to fill stats of character
+    // pre: Character is initialized
+    // post: character has stats
     int getStatByChar(char c);
-
+    // returns stat using a character to select which stat
+    // pre: Character is initialized
+    // post: nothing
     int getAgility();
-
-    void setAgility(int a);
-
-    int getCharisma();
-
-    void setCharisma(int c);
-
-    int getEndurance();
-
-    void setEndurance(int e);
-
-    int getIntelligence();
-
-    void setIntelligence(int i);
-
+    // returns agility
+    // pre: Character is initialized
+    // post: nothing
     int getLuck();
-
-    void setLuck(int l);
-
+    // returns luck
+    // pre: Character is initialized
+    // post: nothing
     int getStrength();
-
-    void setStrength(int s);
-    
+    // returns strength
+    // pre: Character is initialized
+    // post: nothing
     int getHealth();
-    
-    void setHealth(float h);
-
+    // returns health
+    // pre: Character is initialized
+    // post: nothing
+    void loseHealth(int damage);
+    // Character loses some health
+    // pre: Character is initialized
+    // post: damage is subtracted from health
     void printStats();
-
+    // prints all character stats
+    // pre: Character is initialized
+    // post: nothing
     void printHealth();
+    // prints characters health
+    // pre: Character is initialized
+    // post: nothing
+    void attack(Enemy& enemy);
+    // character attacks enemy
+    // pre: Character and enemy is initialized
+    // post: character attacks enemy using character stats.
+    //       enemy will lose health or dodge the attack.
 private:
-    int agility;
-    int charisma;
-    int endurance;
-    int intelligence;
-    int luck;
-    int strength;
-	int health; // stores characters health
+    int agility; // stores agility stat
+    int luck; // stores luck stat
+    int strength; // stroes strength stat
+	int health; // stores characters health stat
 };
 
 #include "Character_impl.tpp"
