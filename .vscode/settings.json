@@ -47,7 +47,10 @@
         "bitset": "cpp",
         "string_view": "cpp",
         "list": "cpp",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp",
+        "thread": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
