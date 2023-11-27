@@ -1,8 +1,12 @@
+//Character.h
+
+
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include "Room.h"
+#include <string>
 using namespace std;
-
 class Enemy;
 // template <class ItemType>
 class Character
@@ -59,13 +63,35 @@ public:
     // pre: Character and enemy is initialized
     // post: character attacks enemy using character stats.
     //       enemy will lose health or dodge the attack.
+    void usePotion();
+    // character will use potion and gain 150 health
+    // pre: Character is initialized
+    // post: if player has any potions left they will gain 150 health
+    //       and lose one potion.
+    void gainPotion();
+    // character will gain one potion
+    // pre: Character is initialized
+    // post: Character will gain a potion
+    void searchRoom(Room room);
+    // character searches room for potions
+    // pre: Character and Room are initialized
+    // post: Character will gain a potion if they find one
+    int getNumPotions();
+    // returns number of potion that character has
+    // pre: Character is initialized
+    // post: returns number of potions in players inventory
 private:
     int agility; // stores agility stat
+	int healthStat; // stores characters health stat
+    int health; // stores character health
     int luck; // stores luck stat
+    int numPotions; // stores health potions
     int strength; // stroes strength stat
-	int health; // stores characters health stat
 };
 
 #include "Character_impl.tpp"
 
 #endif
+
+
+

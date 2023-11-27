@@ -1,55 +1,61 @@
-// #include "Room.h"
+// Room_impl.cpp
 
-// #include <string>
-// #include <iostream>
 
-// using namespace std;
-
-// Room::Room(){
-//     name = "";
-//     nextRoom = nullptr;
-//     numEnemies = 0;
-// }
-
-// Room::Room(string n){
-//     name = n;
-//     nextRoom = nullptr;
-//     numEnemies = 0;
-// }
-
-// void Room::addEnemy(Enemy enemy){
-//     if(numEnemies == 5){
-//         cout << "Room already has maximum number of enemies." << endl;
-//         return;
-//     }
-//     enemies[numEnemies] = enemy;
-//     numEnemies++;
-
-// }
-
-// void Room::setNextRoom(Room* room){
-//     nextRoom = room;
-// }
 #include "Room.h"
+
 #include <iostream>
 
-Room::Room() : nextRoom(nullptr)
-{
+Room::Room(int difficulty) : difficulty(difficulty), nextRoom(nullptr) {
     populateRoom();
 }
 
-
-void Room::populateRoom()
-{
-
+Room::getDifficulty(){
+    return difficulty;
 }
 
-bool Room::allEnemiesDefeated() const
-{
-    for (const auto& enemy : enemies)
-    {
-        if (!enemy.isDefeated())
-        { // 'isDefeated' is going to have to be a method in Enemy
+void Room::populateRoom() {
+    enemies.clear();
+
+    if (difficulty == 1) {
+
+        Enemy enemy1(2, 1, 1, 5, "Goblin");
+        enemy1.addAttack("Punch");
+        enemy1.addAttack("Kick");
+        enemies.push_back(enemy1);
+
+        Enemy enemy2(1, 1, 1, 6, "Skeleton");
+        enemy2.addAttack("Slash");
+        enemy2.addAttack("Stab");
+        enemies.push_back(enemy2);
+    } else if (difficulty == 2) {
+
+        Enemy enemy1(1, 4, 2, 10, "Zombie");
+        enemy1.addAttack("Bite");
+        enemy1.addAttack("Slash");
+        enemies.push_back(enemy1);
+
+        Enemy enemy2(3, 2, 2, 8, "Vampire");
+        enemy2.addAttack("Bite");
+        enemy2.addAttack("Claw");
+        enemy2.addAttack("Hypnosis");
+        enemies.push_back(enemy2);
+    } else if (difficulty == 3) {
+
+    	Enemy enemy1(4, 2, 2, 15, "Sentinel");
+    	enemy1.addAttack("Lightning Surge");
+    	enemy1.addAttack("Spear Charge");
+        enemies.push_back(enemy1);
+
+        Enemy enemy2(2, 4, 4, 13, "Lich");
+        enemy2.addAttack("Blind");
+        enemy2.addAttack("Life Drain");
+        enemies.push_back(enemy2);
+    }
+}
+
+bool Room::allEnemiesDefeated() const {
+    for (const auto& enemy : enemies) {
+        if (!enemy.isDead()) {
             return false;
         }
     }
@@ -63,3 +69,10 @@ Room* Room::getNextRoom() const {
 void Room::setNextRoom(Room* nextRoom) {
     this->nextRoom = nextRoom;
 }
+
+std::vector<Enemy>& Room::getEnemies() {
+    return enemies;
+}
+
+
+

@@ -1,64 +1,97 @@
-#include "character.h"
+// Character_impl.cpp
+
+
+#include "Character.h"
 #include "Enemy.h"
 #include <iostream>
-
+#include <limits>
 
 using namespace std;
 Character::Character(){
     agility = 0;
+    luck = 0;
     strength = 0;
     health = 0;
+    numPotions = 1;
 }
 
 Character::Character(int a, int l, int s, int h){
     agility = a;
     luck = l;
     strength = s;
-    health = 200 + (10*h);
+    health = 230 + (10*h);
+    numPotions = 1;
 }
 
-void Character::promptAllStats(){
+void Character::promptAllStats() {
     // introduction
     cout << "\nSet stats for your character:\n"
-    << "You have 18 points to allocate to these stats:\n"
-    << "agility, charisma, endurance, intelligence, luck, strength, health.\n" << endl;
+         << "You have 22 points to allocate to these stats:\n"
+         << "agility, luck, strength, health.\n"
+         << endl;
 
     // get stats for character
     int aTEMP = 0;
-    int lTEMP = 0; 
-    int sTEMP = 0; 
+    int lTEMP = 0;
+    int sTEMP = 0;
     int hTEMP = 0;
-    int points = 18;
-    while(points > 0){
-        cout << "How many points would you like to allocate to AGILITY(" << points << " points left):" << endl;
-        cin >> aTEMP;
-        points -= aTEMP;
-        
-        cout << "How many points would you like to allocate to LUCK(" << points << " points left):" << endl;
-        cin >> lTEMP;
-        points -= lTEMP;
-        
-        cout << "How many points would you like to allocate to STRENGTH(" << points << " points left):" << endl;
-        cin >> sTEMP;
-        points -= sTEMP;
-        
-        cout << "How many points would you like to allocate to HEALTH(" << points << " points left):" << endl;
-        cin >> hTEMP;
-        points -= hTEMP;
+    int points = 22;
 
-        if(points < 0){
-            cout << "ERROR, make sure all stats add up to a maximum of 25." << endl;
-            aTEMP = 0;
-            lTEMP = 0; 
-            sTEMP = 0; 
-            hTEMP = 0;
-            points = 18;
+    while (points > 0) {
+        cout << "Agility determines how likely you are to dodge an enemy attack.\n" 
+            << "How many points would you like to allocate to AGILITY (" << points << " points left):" << endl;
+        cin >> aTEMP;
+
+        while (cin.fail() || aTEMP < 0 || aTEMP > points) {
+            cin.clear();  // clear input buffer to restore cin to a usable state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // ignore last input
+            cout << "Invalid input. Please enter a positive integer less than or equal to " << points << ": ";
+            cin >> aTEMP;
         }
+        points-=aTEMP;
+
+        cout << "Luck determines how likely you are to find a health potion or get a critical hit.\n"
+            << "How many points would you like to allocate to LUCK (" << points << " points left):" << endl;
+        cin >> lTEMP;
+
+        while (cin.fail() || lTEMP < 0 || lTEMP > points) {
+            cin.clear();  // clear input buffer to restore cin to a usable state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // ignore last input
+            cout << "Invalid input. Please enter a positive integer less than or equal to " << points << ": ";
+            cin >> lTEMP;
+        }
+        points-=lTEMP;
+
+        cout << "Strength determines you base damage.\n"   
+            << "How many points would you like to allocate to STRENGTH (" << points << " points left):" << endl;
+        cin >> sTEMP;
+
+        while (cin.fail() || sTEMP < 0 || sTEMP > points) {
+            cin.clear();  // clear input buffer to restore cin to a usable state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // ignore last input
+            cout << "Invalid input. Please enter a positive integer less than or equal to " << points << ": ";
+            cin >> sTEMP;
+        }
+        points-=sTEMP;
+
+        cout << "Health points increase your starting health and how much health you gain from potions.\n" 
+            << "How many points would you like to allocate to HEALTH (" << points << " points left):" << endl;
+        cin >> hTEMP;
+
+        while (cin.fail() || hTEMP < 0 || hTEMP > points) {
+            cin.clear();  // clear input buffer to restore cin to a usable state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // ignore last input
+            cout << "Invalid input. Please enter a positive integer less than or equal to " << points << ": ";
+            cin >> hTEMP;
+        }
+        points-=hTEMP;
+
     }
+
     agility = aTEMP;
     luck = lTEMP;
     strength = sTEMP;
-    health = 200 + (10*hTEMP);
+    health = 230 + (10 * hTEMP);
 }
 
 int Character::getStatByChar(char c){
@@ -89,7 +122,7 @@ int Character::getAgility(){
 }
 
 int Character::getLuck(){
-    return strength;
+    return luck;
 }
 
 
@@ -109,14 +142,17 @@ void Character::loseHealth(int damage){
 }
 
 void Character::printStats(){
-    cout << "Agility: " << agility << "\n"
+    cout << "Stats\n"
+        << "-------------\n" 
+        << "Agility: " << agility << "\n"
         << "Luck: " << luck << "\n"
-        << "Strength: " << strength << "\n" 
-        << "Health: " << health << "\n" << endl;
+        << "Strength: " << strength << "\n"
+        << "Health: " << health  << "\n"
+        << "\nCurrent Health: " << health << endl;
 }
 
 void Character::printHealth(){
-    cout << "Current health: " << health << endl;
+    cout << "Character health: " << health << endl;
 }
 
 bool Character::isDead(){
@@ -124,30 +160,63 @@ bool Character::isDead(){
 }
 
 void Character::attack(Enemy& enemy){
-    int damage = 45;
-    damage += (5*strength); // calculate bonus damage due to strength stat
+    int damage = 45; // Base damage
+    damage += (5 * strength); // Additional damage based on strength
 
-    int range = 20;
-    range += 2 * agility; // calculate dodge change due to agility
-    int randomNum = rand() %100;
+    // Calculate dodge chance
+    int dodgeChance = 20 + (2 * enemy.getAgility());
+    int attackRoll = rand() % 100;
 
-    if(randomNum > range){
-        range = 30;
-        range += 3 * luck; // calculate critical chance given luck stat
-        randomNum = rand() %100;
-        if(randomNum < range){
-            damage *= 2;
+    if (attackRoll > dodgeChance) {
+        // Calculate critical hit chance
+        int criticalChance = 30 + (3 * luck);
+        bool criticalHitAchieved = (rand() % 100) < criticalChance;
+
+        if (criticalHitAchieved) {
+            damage *= 2; // Double damage for critical hit
             cout << "Critical Hit!" << endl;
+
+            // Health recovery logic
+            int healthRecovered = 10;
+            health += healthRecovered;
+            cout << "You recover " << healthRecovered << " health." << endl;
+        } else {
+            cout << "Hit!" << endl;
+        }
+
+        enemy.loseHealth(damage);
+    } else {
+        cout << enemy.getName() << " dodged the attack!" << endl;
+    }
+}
+
+void Character::usePotion(){
+    int baseBonus = 150;
+    health += baseBonus + (10 * healthStat);
+    numPotions--;
+}
+
+void Character::gainPotion(){
+    numPotions++;
+}
+
+int Character::getNumPotions(){
+    return numPotions;
+}
+
+void Character::searchRoom(Room room){
+    if(room.allEnemiesDefeated()){
+        if((rand() % 100) < (40 + luck)){
+            gainPotion();
+            cout << "You have found a poition in the room!" << endl;
         }
         else{
-            cout << "Hit!" << endl;
-
+            cout << "You did not find a potion, better luck next time." << endl;
         }
-        enemy.loseHealth(damage);
+
     }
     else{
-        cout << enemy.getName() << " dodged the attack!" <<endl;
+        cout << "You must clear the room of enemies before you can search to room. " << endl;
     }
-
 }
 

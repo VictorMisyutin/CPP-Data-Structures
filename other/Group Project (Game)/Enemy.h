@@ -1,9 +1,12 @@
+// Enemy.h
+
+
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "Character.h"
 #include <string>
 using namespace std;
+class Character;
 class Enemy
 {
 public:
@@ -50,11 +53,11 @@ public:
     // pre: Enemy is initialized
     // post: attk is added to attack list
     void attack(Character& player);
-    // enemy attacks enemy
+    // enemy attacks character
     // pre: characer and enemy is initialized
     // post: enemy attacks enemy using enemy stats.
     // enemy will lose health or dodge the attack.
-    bool isDead();
+    bool isDead() const;
     // check if enemy is dead
     // pre: Enemy is initialized
     // post: nothing
@@ -71,3 +74,6 @@ private:
 #include "Enemy_impl.tpp"
 
 #endif
+
+
+
