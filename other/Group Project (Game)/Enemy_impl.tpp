@@ -77,39 +77,6 @@ void Enemy::addAttack(string attk){
     }
 }
 
-
-// void Enemy::attack(Character& player){
-//     string attackUsed;
-//     int randomAttk = rand() % numAttacks;
-//     attackUsed = attacks[randomAttk];
-//     cout << name << " used " << attackUsed << endl;
-
-//     int damage = 45;
-//     damage += (5*strength); // Bonus damage due to strength stat
-
-//     int range = 20;
-//     range += 2 * agility; // Dodge change due to agility
-//     int randomNum = rand() %100;
-
-//     if(randomNum > range){
-//         range = 30;
-//         range += 3 * luck; // Critical chance given luck stat
-//         randomNum = rand() %100;
-//         if(randomNum < range){
-//             damage *= 2;
-//             cout << "Critical Hit!" << endl;
-//         }
-//         else{
-//             cout << "Hit!" << endl;
-
-//         }
-//         player.loseHealth(damage);
-//     }
-//     else{
-//         cout <<"You dodged the attack!" <<endl;
-//     }
-// }
-
 bool Enemy::isDead() const {
     return (health <= 0);
 }

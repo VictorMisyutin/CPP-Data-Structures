@@ -52,11 +52,6 @@ public:
     // add attacks to enemies repetoir
     // pre: Enemy is initialized
     // post: attk is added to attack list
-    void attack(Character& player);
-    // enemy attacks character
-    // pre: characer and enemy is initialized
-    // post: enemy attacks enemy using enemy stats.
-    // enemy will lose health or dodge the attack.
     bool isDead() const;
     // check if enemy is dead
     // pre: Enemy is initialized

@@ -2,17 +2,26 @@
 
 #include "CombatManager.h"
 #include <iostream>
+#include <unistd.h>
+
+using namespace std;
 void CombatManager::engage(Character& player, Enemy& enemy) {
-    cout << "Battle beggining with " << enemy.getName() << endl;
+    cout << "Battle beginning with " << enemy.getName() << endl;
     enemy.printHealth();
     while (!enemy.isDead() && !player.isDead()) {
-        if (playerTurn(player, enemy)) break; // Player's turn
-        if (enemyTurn(enemy, player)) break; // Enemy's turn
+        if (playerTurn(player, enemy)) {
+            break; // Player's turn
+        }
+        if (enemyTurn(enemy, player)) {
+            break; // Enemy's turn
+        }
+
     }
 }
 
 bool CombatManager::playerTurn(Character& player, Enemy& enemy) {
     cout << "Player attacks!" << endl;
+    sleep(2);
     if (!checkDodge(player.getAgility(), enemy.getAgility())) {
         int damage = calculateDamage(45, player.getStrength());
         if (checkCriticalHit(player.getLuck())) {
@@ -28,6 +37,7 @@ bool CombatManager::playerTurn(Character& player, Enemy& enemy) {
 
 bool CombatManager::enemyTurn(Enemy& enemy, Character& player) {
     cout << enemy.getName() << " attacks!" << endl;
+    sleep(2);
     if (!checkDodge(enemy.getAgility(), player.getAgility())) {
         int damage = calculateDamage(45, enemy.getStrength());
         if (checkCriticalHit(enemy.getLuck())) {

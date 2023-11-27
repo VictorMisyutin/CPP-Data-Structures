@@ -159,37 +159,6 @@ bool Character::isDead(){
     return (health <= 0);
 }
 
-void Character::attack(Enemy& enemy){
-    int damage = 45; // Base damage
-    damage += (5 * strength); // Additional damage based on strength
-
-    // Calculate dodge chance
-    int dodgeChance = 20 + (2 * enemy.getAgility());
-    int attackRoll = rand() % 100;
-
-    if (attackRoll > dodgeChance) {
-        // Calculate critical hit chance
-        int criticalChance = 30 + (3 * luck);
-        bool criticalHitAchieved = (rand() % 100) < criticalChance;
-
-        if (criticalHitAchieved) {
-            damage *= 2; // Double damage for critical hit
-            cout << "Critical Hit!" << endl;
-
-            // Health recovery logic
-            int healthRecovered = 10;
-            health += healthRecovered;
-            cout << "You recover " << healthRecovered << " health." << endl;
-        } else {
-            cout << "Hit!" << endl;
-        }
-
-        enemy.loseHealth(damage);
-    } else {
-        cout << enemy.getName() << " dodged the attack!" << endl;
-    }
-}
-
 void Character::usePotion(){
     int baseBonus = 150;
     health += baseBonus + (10 * healthStat);

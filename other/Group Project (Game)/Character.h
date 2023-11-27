@@ -58,11 +58,6 @@ public:
     // returns true if character is dead
     // pre: Character is initialized
     // post: nothing
-    void attack(Enemy& enemy);
-    // character attacks enemy
-    // pre: Character and enemy is initialized
-    // post: character attacks enemy using character stats.
-    //       enemy will lose health or dodge the attack.
     void usePotion();
     // character will use potion and gain 150 health
     // pre: Character is initialized
