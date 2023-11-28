@@ -19,4 +19,7 @@ private:
     int length;
     int priority;
 };
+
+#include "job_impl.tpp"
+
 #endif

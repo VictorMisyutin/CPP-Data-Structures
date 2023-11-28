@@ -6,62 +6,78 @@
 #include <ctime>
 
 using namespace std;
+
+bool isNumeric(string str) {
+    for (int i = 0; (unsigned)i < str.length(); i++){
+        if (isdigit(str[i]) == false)
+            return false;
+    }
+        return true;
+}
+
 int main() {
+    std::string userIn;
+    do{
+        cout << "How many cycles should the simulator run per simultation (Default: 2700)\nCheck MyFindins.txt file for more info.\nNumber of Cycles (enter a number): ";
+        cin >> userIn;
+    } while(!isNumeric(userIn));
+    cout << endl;
+    const int NUM_SIMULATIONS = 1000;
+    const int TOTAL_CYCLES = stoi(userIn);
+    const int INTERARRIVAL_TIME = 20;
+    srand(time(0));
 
-    int MAX_CYCLES = 6675;
-    int numCycles = 0;
-    int numJobs = 0;
-    int completedSims = 0;
-    double jobsPerCycle = 0.0f;
-    double totalJobsPerCycle = 0.0f;
-    bool terminatedEarly = false;
+    int completedSimulations = 0;
+    int incompleteSimulations = 0;
 
-    for(int i = 0; i < 1000 ; i++){
+    for (int sim = 0; sim < NUM_SIMULATIONS; ++sim) {
         PQType<Job> jobQueue(50);
         Scheduler<Job> scheduler(50);
-        srand(time(0) + i);
-        for (int i = 0; i < 50; i++) {
-            int length = 1 + (rand() % 100);
-            int priority = rand() % 2 == 1 ? 1 + (rand() % 20) : -1 * (rand() % 19);
-            Job job(priority, length);
-            jobQueue.Enqueue(job);
-        }
-        while (!jobQueue.IsEmpty()) {
-            Job currentJob;
-            jobQueue.Dequeue(currentJob);
-            numCycles += currentJob.getLength();
-            numJobs++;
-            if(numCycles > MAX_CYCLES){
-                terminatedEarly = true;
+
+        int cycles = 0;
+        int jobsProcessed = 0;
+        float jobsPerCycle = 0.0;
+        while (cycles < TOTAL_CYCLES) {
+            jobsPerCycle += scheduler.getNumJobs();
+            if(jobsProcessed >= 50){
                 break;
             }
-            // cout << "Processing Job: Priority = " << currentJob.getPriority() 
-            //         << ", Length = " << currentJob.getLength() << endl;
-            scheduler.addJob(currentJob);
-            numCycles += currentJob.getLength();
-            jobsPerCycle = (jobsPerCycle + (scheduler.getNumJobs() / currentJob.getLength()))/2;
+            Job currentJob;
+            if (!scheduler.IsEmpty()) {
+                scheduler.Dequeue(currentJob);
+                jobsProcessed++;
+                cycles += currentJob.getLength();
+            }
+            if (cycles % INTERARRIVAL_TIME == 0) {
+                int length = 1 + (rand() % 100);
+                int priority = rand() % 40 - 19;
+                Job newJob(priority, length);
+                jobQueue.Enqueue(newJob);
+            }
+            if (!jobQueue.IsEmpty()) {
+                Job nextJob;
+                jobQueue.Dequeue(nextJob);
+                scheduler.addJob(nextJob);
+            }
+            cycles++;
         }
 
-        if(terminatedEarly){
-            cout << "Average number of jobs in the heap per cycle: " << (int)(jobsPerCycle) << 
-                    ".\nThe scheduler did not complete all 50 jobs.\nJobs processed: " << numJobs << "." << endl; 
+        cout << "Average number of jobs in the heap per cycle: " << jobsPerCycle / TOTAL_CYCLES << endl;
+
+        if (jobsProcessed >= 50) {
+            cout << "The scheduler completed all 50 jobs." << endl;
+            cout << "It took " << cycles << " cycles to complete them." << endl;
+            completedSimulations++;
+        } else {
+            cout << "The scheduler did not complete all 50 jobs." << endl;
+            cout << "Jobs processed: " << jobsProcessed << endl;
+            incompleteSimulations++;
         }
-        else{
-            completedSims++;
-            cout << "Average number of jobs in the heap per cycle: " << (int)(jobsPerCycle) << 
-                    ".\nThe scheduler completed all 50 jobs.\nIt took " << numCycles << " to complete them." << endl; 
-        }
-        numCycles = 0;
-        numJobs = 0;
-        terminatedEarly = false;
-        jobQueue.MakeEmpty();
-        scheduler.MakeEmpty();
-        totalJobsPerCycle = (totalJobsPerCycle + jobsPerCycle)/2;
-        jobsPerCycle = 0.0f;
+        cout << "-------" << endl;
     }
-    cout << "Average number of jobs in heap per cycle: " << (int)(totalJobsPerCycle) << endl; 
-    cout << "Completed Simulations: " << completedSims << endl;
-    cout << "Incomplete Simulations: " << (1000 - completedSims) << endl;
 
+    cout << "Completed simulations: " << completedSimulations << endl;
+    cout << "Incomplete simulations: " << incompleteSimulations << endl;
+        
    return 0;
 }

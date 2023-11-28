@@ -1,0 +1,16 @@
+After running 1000 simulation many times I found that roughly 3600-3700 cycles ensures that all jobs will be
+completed in each simulation. The way that I calculate the average number of jobs in the heap per cycle is I add up
+the number of jobs in the schedule every cycle, then once the simulation is completed I divide that number by the 
+number of cycles it took to complete that simulation. If the simulation was not completed then I divide by the set
+maximum number of cycles. If I keep the default of 2700 cycles per simulation I tend to get around 69 completed 
+simulations and 931 uncompleted simulations. When there are 2700 cycles per simulation the average number of jobs
+processed per failed simulation is 45/46 and the average number of jobs in the heap per cycle is 4. 
+
+When using 3650 cycles for each simulation I get 1000 completed simulations and 0 uncompleted simulations.
+The average number of cycles needed to complete 50 jobs is about 3000, but some simulations spike up to 
+3500 or more, so having one or two more hundred cycles above ensures the completion of 50 jobs.  
+
+In conclusion, most jobs take 2900 to 3000 cycles. So, setting the number of cycles to 2990 or 3000 will complete
+about half of the jobs. If you would like to complete all of the jobs in each simulation keeping the 
+number of cycles at a minimum then a value of 3700 should do the trick. However, keep in mind that the jobs calculate length
+at random so every once in a while there might be a simulation that will not complete all 50 jobs but this should be pretty rare.
