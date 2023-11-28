@@ -90,8 +90,12 @@ void HashType<ItemType>::InsertItemLinear(ItemType item){
             info[location] = item;
             numItems++;
             found = true;
-        } else {
-            location = (location + 1) % size; // Linear probing
+        } 
+        else if(info[location] == item){
+            return;
+        }
+        else {
+            location = (location + 1) % size;
             numCollisions++;
         }
   }
@@ -115,7 +119,11 @@ void HashType<ItemType>::InsertItemQuadratic(ItemType item){
             numItems++;
             found = true;
             i = 0;
-        } else {
+        } 
+        else if(info[location] == item){
+            return;
+        }
+        else {
             location = (startLoc + i * i) % size; // Quadratic probing
             numCollisions++;
             i++;
@@ -138,8 +146,8 @@ void HashType<ItemType>::DeleteItem(ItemType item)
     location = startLoc;
     do
     {
-      if (info[location] == item || info[location] == emptyItem){
-    	  info[location] = -1;
+      if (info[location] == item){
+    	  info[location] = emptyItem;
     	  numItems--;
     	  return;
       }

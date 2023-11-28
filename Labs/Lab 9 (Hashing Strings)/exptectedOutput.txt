@@ -1,0 +1,78 @@
+hashText1.txt
+Linear:
+Hash table size: 8087
+Number of collisions with a = 33: 9032
+Hash table size: 8087
+Number of collisions with a = 37: 1600
+Hash table size: 8087
+Number of collisions with a = 39: 6889
+Hash table size: 8087
+Number of collisions with a = 41: 1153
+Quadratic:
+Hash table size: 8087
+Number of collisions with a = 33: 7564
+Hash table size: 8087
+Number of collisions with a = 37: 1129
+Hash table size: 8087
+Number of collisions with a = 39: 5485
+Hash table size: 8087
+Number of collisions with a = 41: 1024
+hashText2.txt
+Linear:
+Hash table size: 84551
+Number of collisions with a = 33: 5671
+Hash table size: 84551
+Number of collisions with a = 37: 18939
+Hash table size: 84551
+Number of collisions with a = 39: 6867
+Hash table size: 84551
+Number of collisions with a = 41: 286899
+Hash table size: 84551
+Quadratic:
+Hash table size: 84551
+Number of collisions with a = 33: 4581
+Hash table size: 84551
+Number of collisions with a = 37: 16198
+Hash table size: 84551
+Number of collisions with a = 39: 5925
+Hash table size: 84551
+Number of collisions with a = 41: 29794
+hashText3.txt
+Linear:
+Hash table size: 57487
+Number of collisions with a = 33: 115027
+Hash table size: 57487
+Number of collisions with a = 37: 38091
+Hash table size: 57487
+Number of collisions with a = 39: 19656
+Hash table size: 57487
+Number of collisions with a = 41: 9517
+Hash table size: 57487
+Quadratic:
+Hash table size: 57487
+Number of collisions with a = 33: 95349
+Hash table size: 57487
+Number of collisions with a = 37: 31034
+Hash table size: 57487
+Number of collisions with a = 39: 28436
+Hash table size: 57487
+Number of collisions with a = 41: 7715
+hashText4.txt
+Linear:
+Hash table size: 6563
+Number of collisions with a = 33: 9564
+Hash table size: 6563
+Number of collisions with a = 37: 2287
+Hash table size: 6563
+Number of collisions with a = 39: 9218
+Hash table size: 6563
+Number of collisions with a = 41: 1234
+Quadratic:
+Hash table size: 6563
+Number of collisions with a = 33: 2807
+Hash table size: 6563
+Number of collisions with a = 37: 1355
+Hash table size: 6563
+Number of collisions with a = 39: 7024
+Hash table size: 6563
+Number of collisions with a = 41: 1003

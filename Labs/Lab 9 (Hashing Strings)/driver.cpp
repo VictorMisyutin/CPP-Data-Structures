@@ -12,7 +12,7 @@ int main(){
     ifstream file2("hashText2.txt");
     ifstream file3("hashText3.txt");
     ifstream file4("hashText4.txt");
-        
+
 
     int primeNumber;
     string currentLine;
