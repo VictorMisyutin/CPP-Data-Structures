@@ -17,6 +17,7 @@ const int MAX_ITEMS = 20000000;
 int numbers[MAX_ITEMS];
 int temp[MAX_ITEMS];
 int chunk;
+unsigned int maxthreads = thread::hardware_concurrency();// + 4; // added more for 5.2
 
 
 template<class ItemType>
@@ -75,24 +76,35 @@ void SerialMergeSort(ItemType values[], int first, int last, ItemType tempArray[
 }
 
 template<class ItemType>
-void ParallelMergeSort(ItemType values[], int first, int last, ItemType tempArray[], int chunkSize)
-// Post: The elements in values are sorted by key.
+void ParallelMergeSort(ItemType values[], int first, int last, ItemType tempArray[], int chunkSize, int numThreads)
 {
     if (first < last)
     {
         int middle = (first + last) / 2;
-        if (last-first > chunkSize)         // If enough work left, launch more threads
+        if (last - first > chunkSize && numThreads > 1) // If enough work left, launch more threads
         {
-            thread left (ParallelMergeSort<ItemType>, values, first, middle, tempArray, chunkSize);
-            thread right (ParallelMergeSort<ItemType>, values, middle + 1, last, tempArray, chunkSize);
+            int leftLast = middle;
+            int rightFirst = middle + 1;
+
+            int leftR = middle - first + 1;
+            int rightR = last - middle;
+
+            int leftThreads = std::min(numThreads / 2, leftR / chunkSize);
+            int rightThreads = std::min(numThreads - leftThreads, rightR / chunkSize);
+
+            std::thread left(ParallelMergeSort<ItemType>, values, first, leftLast, tempArray, chunkSize, leftThreads);
+            std::thread right(ParallelMergeSort<ItemType>, values, rightFirst, last, tempArray, chunkSize, rightThreads);
+
             left.join();
             right.join();
         }
-        else                                // Otherwise finish sorting locally
+        else                                            // Otherwise finish sorting locally
         {
+            // Otherwise finish sorting locally
             SerialMergeSort<ItemType>(values, first, middle, tempArray);
             SerialMergeSort<ItemType>(values, middle + 1, last, tempArray);
         }
+
         Merge<ItemType>(values, first, middle, middle + 1, last, tempArray);
     }
 }
@@ -106,12 +118,12 @@ int main(int argc, const char * argv[]) {
         numbers[index] = rand() % 1000000000;
     }
     
-    cout << "Enter chunk size (<= " << MAX_ITEMS << "): ";
+    cout << "Enter chunk size (<= " << MAX_ITEMS/maxthreads << "): ";
     cin >> chunk;
     
     start = chrono::system_clock::now();           // Record start time
     
-    ParallelMergeSort<int>(numbers, 0, MAX_ITEMS-1, temp, chunk);         // Run the sort
+    ParallelMergeSort<int>(numbers, 0, MAX_ITEMS-1, temp, chunk, maxthreads);         // Run the sort
     
     end = chrono::system_clock::now();             // Record end time
     
