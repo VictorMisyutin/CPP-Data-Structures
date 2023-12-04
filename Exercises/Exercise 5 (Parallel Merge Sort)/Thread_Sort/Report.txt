@@ -1,9 +1,9 @@
 5.1
 -----------
-After testing various chunk sizes I found that a chunk size of 1400000 yeilds
+After testing various chunk sizes, I found that a chunk size of 1,400,000 yields
 the quickest sorting time. If I were to increase or decrease the chunk size by 
-a factor of 100000 in either direction then the execution time will increase.
-with a chunk size of 1400000 my computer takes about 1 second to sort the array.
+a factor of 100,000 in either direction then the execution time will increase.
+with a chunk size of 1,400,000 my computer takes about 1 second to sort the array.
 This time changes on each run but if I run the program with a 1400000 chunk size
 5 times these are the time values that I get:
 1: 1.01968
@@ -12,16 +12,16 @@ This time changes on each run but if I run the program with a 1400000 chunk size
 4: 0.938525
 5: 0.892511
 
-On a stronger computer (such as mt desktop computer) these times would likely be much faster
+On a stronger computer (such as my desktop computer) these times would likely be much faster
 but I am currently running this program on my laptop which has worse hardware.
 
 
 5.2
 -----------
-After changin the parallel merge sort function to utilize all of my computers threads (16)
-I was able to complete the sort algorithm slightly faster. With a chunk size of 550000 I was
+After changing the parallel merge sort function to utilize all of my computer’s threads (16)
+I was able to complete the sort algorithm slightly faster. With a chunk size of 550,000 I was
 able to get a new average execution time of the array to roughly 0.9 seconds. If I run the 
-program 5 times with a chunk size of 550000 here are the values I get:
+program 5 times with a chunk size of 550,000 here are the values I get:
 1: 0.928247
 2: 0.973061
 3: 0.874372
@@ -32,6 +32,28 @@ program 5 times with a chunk size of 550000 here are the values I get:
 5.3
 -----------
 I tried running the parallel merge sort algorithm using more threads than are available which
-did not have an affect on the time it took to execute the program. With more threads I was getting
+did not have an effect on the time it took to execute the program. With more threads I was getting
 roughly 0.9 seconds for the time to execute the program, which is the same as I was getting previously.
 When I tried changing the chunk size in either direction, the time to execute would increase.
+
+5.4
+-----------
+For this section I am going to redo 5.1 and 5.3 on my desktop computer at home that allows
+24 threads to run concurrently. 
+    5.1| 
+    On this this computer if I run the original program with the same chunk size as I did in 5.1,
+    I get a execution time of about 0.29 seconds each time. This is a lot better of a result than
+    my laptop which is mostly due to the better hardware. The only thing that is slightly different 
+    is that if I increase the chunk size to 1,500,000 I get a better execution time by about 0.001 
+    second.
+
+    5.3|
+    After implementing the parallel merge sort algorithm that uses 24 threads, I found that a chunk 
+    size of 800,000 yields the best results. With that many chunks the sorting completed in about 
+    0.28 seconds. This is not that big of a change from 0.29 but compared to the 0.9 seconds from
+    earlier, that is a huge change.
+
+After running various tests on the merge sort algorithm using different hardware a slightly different
+algorithm I can conclude that what CPU you are using has a large effect on the execution time of the 
+sorting algorithm. Also, the number of threads and chunk sizes that the sort uses makes a difference
+on the overall execution time but has less of an impact compared to the CPU.
