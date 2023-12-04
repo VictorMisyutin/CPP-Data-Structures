@@ -50,7 +50,7 @@ For this section I am going to redo 5.1 and 5.3 on my desktop computer at home t
     5.3|
     After implementing the parallel merge sort algorithm that uses 24 threads, I found that a chunk 
     size of 800,000 yields the best results. With that many chunks the sorting completed in about 
-    0.28 seconds. This is not that big of a change from 0.29 but compared to the 0.9 seconds from
+    0.26 seconds. This is not that big of a change from 0.29 but compared to the 0.9 seconds from
     earlier, that is a huge change.
 
 After running various tests on the merge sort algorithm using different hardware a slightly different

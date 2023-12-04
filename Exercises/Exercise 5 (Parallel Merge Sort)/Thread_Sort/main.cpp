@@ -5,6 +5,8 @@
 //  Created by Charles Weems on 1/12/16.
 //  Copyright © 2016 Charles Weems. All rights reserved.
 //
+#include "mingw.invoke.h"
+#include "mingw.thread.h"
 
 #include <iostream>
 #include <stdlib.h>
