@@ -39,7 +39,7 @@ int main() {
 	myGraph.AddEdge("G", "F", 67);
 	cout << "Before:" << endl;
 	cout << myGraph << endl;
-	//myGraph.Floyds();
+	myGraph.Floyds();
 	cout << "After:" << endl;
 	cout << myGraph << endl;
 
