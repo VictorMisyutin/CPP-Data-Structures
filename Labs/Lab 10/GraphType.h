@@ -62,8 +62,7 @@ public:
   bool isLessWithInfinity(VertexType x, VertexType y);
   VertexType minWithInfinity(VertexType x, VertexType y);
   int getNumVertices();
-  void allPairsShortestPaths(VertexType* edg[50], int);
-  void Floyds();
+  void allPairsShortestPaths();
 // private:
   int numVertices;
   int maxVertices;
@@ -73,7 +72,7 @@ public:
 };
 
 template<class VertexType>
-void GraphType<VertexType>::Floyds() {
+void GraphType<VertexType>::allPairsShortestPaths() {
     for (int i = 0; i < numVertices; i++) {
         for (int r = 0; r < numVertices; r++) {
             for (int c = 0; c < numVertices; c++) {
@@ -82,17 +81,6 @@ void GraphType<VertexType>::Floyds() {
         }
     }
 }
-
-// template<class VertexType>
-// void GraphType<VertexType>::allPairsShortestPaths(VertexType* edg[50], int n) {
-//     for (int i = 0; i < n; ++i) {
-//         for (int r = 0; r < n; ++r) {
-//             for (int c = 0; c < n; ++c) {
-//                 edg[r][c] = minWithInfinity(edg[r][c], addWithInfinity(edg[r][i], edg[i][c]));
-//             }
-//         }
-//     }
-// }
 
 template<class VertexType>
 void ShortestPath(GraphType<VertexType>& graph,
